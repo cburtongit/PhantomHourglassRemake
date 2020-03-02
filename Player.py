@@ -13,7 +13,7 @@ class Player(Entity):
     # what items the enemy has, should only have 1 or 2 unless boss, similar to player.inventory[]
     equipped = []
     # movement speed
-    speed = 0
+    speed = 5
 
     # Inventory and Defense Items e.g. armor, shield
     # all items Entity is holding NON-EQUIPPED
@@ -55,8 +55,18 @@ class Player(Entity):
             dis.blit(self.left_sprites[0], (self.Xpos, self.Ypos))
 
     def move(self):
-
-        pass
+        if self.direction == 'up':
+            self.Ypos = self.Ypos - self.speed
+            print(str(self.Xpos) + ', ' + str(self.Ypos))
+        if self.direction == 'down':
+            self.Ypos = self.Ypos + self.speed
+            print(str(self.Xpos) + ', ' + str(self.Ypos))
+        if self.direction == 'right':
+            self.Xpos = self.Xpos + self.speed
+            print(str(self.Xpos) + ', ' + str(self.Ypos))
+        if self.direction == 'left':
+            self.Xpos = self.Xpos - self.speed
+            print(str(self.Xpos) + ', ' + str(self.Ypos))
 
     def getInput(self, event):
         if event.type == pygame.KEYDOWN:
@@ -66,19 +76,19 @@ class Player(Entity):
                 pygame.quit()
             # movement based on keypress
             # UP
-            if event.key == pygame.K_UP or event == pygame.K_w:
+            if event.key == pygame.K_UP or event.key == pygame.K_w:
                 self.direction = 'up'
                 self.move()
             # DOWN
-            if event.key == pygame.K_DOWN or event == pygame.K_s:
+            if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 self.direction = 'down'
                 self.move()
             # LEFT
-            if event.key == pygame.K_LEFT or event == pygame.K_a:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 self.direction = 'left'
                 self.move()
             # RIGHT
-            if event.key == pygame.K_RIGHT or event == pygame.K_d:
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 self.direction = 'right'
                 self.move()
 
