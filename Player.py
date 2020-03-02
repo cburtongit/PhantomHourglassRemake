@@ -12,6 +12,8 @@ class Player(Entity):
     windUp = 0
     # what items the enemy has, should only have 1 or 2 unless boss, similar to player.inventory[]
     equipped = []
+    # movement speed
+    speed = 0
 
     # Inventory and Defense Items e.g. armor, shield
     # all items Entity is holding NON-EQUIPPED
@@ -28,8 +30,9 @@ class Player(Entity):
     right_sprites = []
     # mirrored right-facing sprites
     left_sprites = []
+    cur_sprites = []
 
-    def __init__(self, x, y, e, ent_id, hpt, atk, inv, eqp, drc):
+    def __init__(self, x, y, e, ent_id, hpt, atk, inv, eqp, speed, drc):
         super().__init__(x, y, e, ent_id)
         self.health = hpt
         self.atk = atk
@@ -41,3 +44,6 @@ class Player(Entity):
 
     def draw(self, dis, direction):
         dis.blit(self.test_img, (self.Xpos, self.Ypos))
+
+    def move(self, direction):
+        pass
