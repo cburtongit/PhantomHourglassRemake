@@ -3,6 +3,12 @@ import pyganim
 
 
 class Entity:
+    # Python doesn't actually allow constants so just don't reassign these
+    UP = 'up'
+    DOWN = 'down'
+    LEFT = 'left'
+    RIGHT = 'right'
+    
     # Coordinates X and Y are within game window, E indicates what level of elevation the Entity is on
     Xpos = 0
     Ypos = 0
