@@ -25,11 +25,11 @@ class Player(Entity):
 
     # animations
     test_img = pygame.image.load('resources/sprites/link/dev_link.png')
-    up_sprites = []
-    down_sprites = []
-    right_sprites = []
+    up_sprites = [pygame.image.load('resources/sprites/link/link_up.png')]
+    down_sprites = [pygame.image.load('resources/sprites/link/link_down.png')]
+    right_sprites = [pygame.image.load('resources/sprites/link/link_right.png')]
     # mirrored right-facing sprites
-    left_sprites = []
+    left_sprites = [pygame.transform.flip(pygame.image.load('resources/sprites/link/link_right.png'), True, False)]
     cur_sprites = []
 
 
@@ -46,32 +46,39 @@ class Player(Entity):
     def draw(self, dis):
         # dis.blit(self.test_img, (self.Xpos, self.Ypos))
         if self.direction == 'up':
-            dis.blit()
+            dis.blit(self.up_sprites[0], (self.Xpos, self.Ypos))
+        if self.direction == 'down':
+            dis.blit(self.down_sprites[0], (self.Xpos, self.Ypos))
+        if self.direction == 'right':
+            dis.blit(self.right_sprites[0], (self.Xpos, self.Ypos))
+        if self.direction == 'left':
+            dis.blit(self.left_sprites[0], (self.Xpos, self.Ypos))
 
     def move(self):
 
         pass
 
     def getInput(self, event):
-        if event.type == KEYDOWN:
+        if event.type == pygame.KEYDOWN:
+            print("KEY PRESSED")
             # escape key quits game
-            if event.key == K_ESCAPE:
+            if event.key == pygame.K_ESCAPE:
                 pygame.quit()
             # movement based on keypress
             # UP
-            if event.key == K_UP or event == K_w:
+            if event.key == pygame.K_UP or event == pygame.K_w:
                 self.direction = 'up'
                 self.move()
             # DOWN
-            if event.key == K_DOWN or event == K_s:
+            if event.key == pygame.K_DOWN or event == pygame.K_s:
                 self.direction = 'down'
                 self.move()
             # LEFT
-            if event.key == K_LEFT or event == K_a:
+            if event.key == pygame.K_LEFT or event == pygame.K_a:
                 self.direction = 'left'
                 self.move()
             # RIGHT
-            if event.key == K_RIGHT or event == K_d:
+            if event.key == pygame.K_RIGHT or event == pygame.K_d:
                 self.direction = 'right'
                 self.move()
 

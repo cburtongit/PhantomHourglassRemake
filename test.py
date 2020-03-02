@@ -20,17 +20,15 @@ def main():
     background = pygame.image.load('resources/world/LTTP_start_house.png').convert()
     screen.blit(background, (0, 0))
 
-    players = []
-    for i in range(10):
-        i = Player(random.randint(50, 450), random.randint(50, 450), 1, i, 100, 50, '', '', 5, 'left')
-        players.append(i)
+    link = Player((WINDOW_X / 2), (WINDOW_Y / 2), 1, 'link', 100, 50, '', '', 5, 'left')
     while 1:
         screen.blit(background, (0, 9))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-        for i in players:
-            i.draw(screen, 'down')
+            link.getInput(event)
+        link.draw(screen)
+
         pygame.display.update()
         pygame.time.delay(100)
 
