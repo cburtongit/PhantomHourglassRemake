@@ -6,6 +6,9 @@ from datetime import date
 
 from Player import Player
 
+WINDOW_X = 512
+WINDOW_Y = 512
+
 cur_date = date.today()
 
 def main():
@@ -13,7 +16,7 @@ def main():
     pygame.init()
 
     pygame.display.set_caption('Phantom Hourglass ALPHA - ' + str(cur_date))
-    screen = pygame.display.set_mode((512, 512))
+    screen = pygame.display.set_mode((WINDOW_X, WINDOW_Y))
     background = pygame.image.load('resources/world/LTTP_start_house.png').convert()
     screen.blit(background, (0, 0))
 
