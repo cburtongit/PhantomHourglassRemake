@@ -19,11 +19,6 @@ def main():
 
 
 
-    # TEST
-
-    player = Player(100, 100, 0)
-    # TEST
-
 
 if __name__ == main:
     main()

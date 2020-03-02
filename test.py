@@ -21,7 +21,7 @@ def main():
 
     players = []
     for i in range(10):
-        i = Player(random.randint(50, 450), random.randint(50, 450), 1, i, 100, 50, '', '', 'left')
+        i = Player(random.randint(50, 450), random.randint(50, 450), 1, i, 100, 50, '', '', 5, 'left')
         players.append(i)
     while 1:
         screen.blit(background, (0, 9))
