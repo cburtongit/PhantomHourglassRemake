@@ -70,7 +70,7 @@ class Player(Entity):
         if self.moveright:
             self.Xpos += self.speed
 
-    def getInput(self, event):
+    def get_input(self, event):
         if event.type == pygame.KEYDOWN:
             print("KEY PRESSED")
             # escape key quits game
@@ -82,36 +82,48 @@ class Player(Entity):
                 self.direction = 'up'
                 self.moveup = True
                 self.movedown = False
-                self.move()
             # DOWN
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 self.direction = 'down'
                 self.moveup = False
                 self.movedown = True
-                self.move()
             # LEFT
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 self.direction = 'left'
                 self.moveleft = True
                 self.moveright = False
-                self.move()
             # RIGHT
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 self.direction = 'right'
                 self.moveleft = False
                 self.moveright = True
-                self.move()
 
         elif event.type == pygame.KEYUP:
             print('KEY NOT PRESSED')
             if event.key == pygame.K_UP or event.key == pygame.K_w:
                 self.moveup = False
+                if self.moveleft:
+                    self.direction = 'left'
+                if self.moveright:
+                    self.direction = 'right'
             # DOWN
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 self.movedown = False
+                if self.moveleft:
+                    self.direction = 'left'
+                if self.moveright:
+                    self.direction = 'right'
             # LEFT
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 self.moveleft = False
+                if self.moveup:
+                    self.direction = 'up'
+                if self.movedown:
+                    self.direction = 'down'
             # RIGHT
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 self.moveright = False
+                if self.moveup:
+                    self.direction = 'up'
+                if self.movedown:
+                    self.direction = 'down'

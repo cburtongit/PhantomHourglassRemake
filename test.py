@@ -24,7 +24,7 @@ def main():
     while 1:
         screen.blit(background, (0, 9))
         for event in pygame.event.get():
-            link.getInput(event)
+            link.get_input(event)
             if event.type == pygame.QUIT:
                 sys.exit()
 
