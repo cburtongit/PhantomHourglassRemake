@@ -1,21 +1,19 @@
-import os
+
 import sys
 import random
 import pygame
-import pyganim
-from Entity import Entity
+from datetime import date
+
 from Player import Player
 
+cur_date = date.today()
 
 def main():
     # initialise pygame
     pygame.init()
 
-    ## TEST ##
+    pygame.display.set_caption('Phantom Hourglass ALPHA - ' + str(cur_date))
     screen = pygame.display.set_mode((512, 512))
-    a = []
-    b = []
-    #player = Player(100, 100, 1, 1, 100, 100, a, b, 'left')
     background = pygame.image.load('resources/world/LTTP_start_house.png').convert()
     screen.blit(background, (0, 0))
 

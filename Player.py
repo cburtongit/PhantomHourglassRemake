@@ -1,5 +1,5 @@
 import pygame
-import pyganim
+# import pyganim
 from Entity import Entity
 
 
@@ -32,6 +32,7 @@ class Player(Entity):
     left_sprites = []
     cur_sprites = []
 
+
     def __init__(self, x, y, e, ent_id, hpt, atk, inv, eqp, speed, drc):
         super().__init__(x, y, e, ent_id)
         self.health = hpt
@@ -47,3 +48,23 @@ class Player(Entity):
 
     def move(self, direction):
         pass
+
+    def getInput(self, event):
+        if event.type == KEYDOWN:
+            # escape key quits game
+            if event.key == K_ESCAPE:
+                pygame.quit()
+            # movement based on keypress
+            # UP
+            if event.key == K_UP or event == K_w:
+                self.move(self, 'up')
+            # DOWN
+            if event.key == K_DOWN or event == K_s:
+                self.move(self, 'down')
+            # LEFT
+            if event.key == K_LEFT or event == K_a:
+                self.move(self, 'left')
+            # RIGHT
+            if event.key == K_RIGHT or event == K_d:
+                self.move(self, 'right')
+
