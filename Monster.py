@@ -3,7 +3,6 @@ import Entity
 
 
 class Monster(Entity):
-
     # battle stats
     # health - total health, once 0 death() should be called
     health = 0
@@ -24,8 +23,11 @@ class Monster(Entity):
     # moveUp = moveRight = moveDown = moveLeft = False
     direction = ''
 
-    def __init__(self, health, atk, windUp, inv, drc, x, y, e):
-        super().__init__(x, y, e)
+    # current sprite set to draw
+    currentSprite = {}
+
+    def __init__(self, x, y, e, ent_id, health, atk, windUp, inv, drc):
+        super().__init__(x, y, e, ent_id)
         self.health = health
         self.atk = atk
         self.windUp = windUp

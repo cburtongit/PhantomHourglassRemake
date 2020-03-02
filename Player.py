@@ -23,9 +23,14 @@ class Player(Entity):
 
     # animations
     test_img = pygame.image.load('resources/sprites/link/dev_link.png')
+    up_sprites = []
+    down_sprites = []
+    right_sprites = []
+    # mirrored right-facing sprites
+    left_sprites = []
 
-    def __init__(self, x, y, e, hpt, atk, inv, eqp, drc):
-        super().__init__(x, y, e)
+    def __init__(self, x, y, e, ent_id, hpt, atk, inv, eqp, drc):
+        super().__init__(x, y, e, ent_id)
         self.health = hpt
         self.atk = atk
         self.windUp = 0
@@ -34,8 +39,5 @@ class Player(Entity):
         self.inventory = inv
         self.direction = drc
 
-    def draw(self, drc, ):
-        pass
-
-    def draw(self, dis):
+    def draw(self, dis, direction):
         dis.blit(self.test_img, (self.Xpos, self.Ypos))
