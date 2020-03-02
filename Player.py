@@ -23,6 +23,8 @@ class Player(Entity):
     # moveUp = moveRight = moveDown = moveLeft = False
     direction = ''
 
+    moveup = movedown = moveleft = moveright = False
+
     # animations
     test_img = pygame.image.load('resources/sprites/link/dev_link.png')
     up_sprites = [pygame.image.load('resources/sprites/link/link_up.png')]
@@ -30,8 +32,6 @@ class Player(Entity):
     right_sprites = [pygame.image.load('resources/sprites/link/link_right.png')]
     # mirrored right-facing sprites
     left_sprites = [pygame.transform.flip(pygame.image.load('resources/sprites/link/link_right.png'), True, False)]
-    cur_sprites = []
-
 
     def __init__(self, x, y, e, ent_id, hpt, atk, inv, eqp, speed, drc):
         super().__init__(x, y, e, ent_id)
@@ -41,7 +41,13 @@ class Player(Entity):
         self.inventory = inv
         self.equipped = eqp
         self.inventory = inv
+
         self.direction = drc
+
+        self.moveleft = False
+        self.moveright = False
+        self.moveup = False
+        self.movedown = False
 
     def draw(self, dis):
         # dis.blit(self.test_img, (self.Xpos, self.Ypos))
@@ -55,18 +61,14 @@ class Player(Entity):
             dis.blit(self.left_sprites[0], (self.Xpos, self.Ypos))
 
     def move(self):
-        if self.direction == 'up':
-            self.Ypos = self.Ypos - self.speed
-            print(str(self.Xpos) + ', ' + str(self.Ypos))
-        if self.direction == 'down':
-            self.Ypos = self.Ypos + self.speed
-            print(str(self.Xpos) + ', ' + str(self.Ypos))
-        if self.direction == 'right':
-            self.Xpos = self.Xpos + self.speed
-            print(str(self.Xpos) + ', ' + str(self.Ypos))
-        if self.direction == 'left':
-            self.Xpos = self.Xpos - self.speed
-            print(str(self.Xpos) + ', ' + str(self.Ypos))
+        if self.moveup:
+            self.Ypos -= self.speed
+        if self.movedown:
+            self.Ypos += self.speed
+        if self.moveleft:
+            self.Xpos -= self.speed
+        if self.moveright:
+            self.Xpos += self.speed
 
     def getInput(self, event):
         if event.type == pygame.KEYDOWN:
@@ -78,18 +80,38 @@ class Player(Entity):
             # UP
             if event.key == pygame.K_UP or event.key == pygame.K_w:
                 self.direction = 'up'
+                self.moveup = True
+                self.movedown = False
                 self.move()
             # DOWN
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 self.direction = 'down'
+                self.moveup = False
+                self.movedown = True
                 self.move()
             # LEFT
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 self.direction = 'left'
+                self.moveleft = True
+                self.moveright = False
                 self.move()
             # RIGHT
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 self.direction = 'right'
+                self.moveleft = False
+                self.moveright = True
                 self.move()
 
-
+        elif event.type == pygame.KEYUP:
+            print('KEY NOT PRESSED')
+            if event.key == pygame.K_UP or event.key == pygame.K_w:
+                self.moveup = False
+            # DOWN
+            if event.key == pygame.K_DOWN or event.key == pygame.K_s:
+                self.movedown = False
+            # LEFT
+            if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+                self.moveleft = False
+            # RIGHT
+            if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+                self.moveright = False
