@@ -1,6 +1,4 @@
-
 import sys
-import random
 import pygame
 from datetime import date
 
@@ -11,10 +9,11 @@ WINDOW_Y = 512
 
 cur_date = date.today()
 
+
 def main():
-    # initialise pygame
     pygame.init()
 
+    CLOCK = pygame.time.Clock()
     pygame.display.set_caption('Phantom Hourglass ALPHA - ' + str(cur_date))
     screen = pygame.display.set_mode((WINDOW_X, WINDOW_Y))
     background = pygame.image.load('resources/world/LTTP_start_house.png').convert()
@@ -33,13 +32,8 @@ def main():
         link.draw(screen)
 
         pygame.display.update()
-        pygame.time.delay(100)
+        CLOCK.tick(30)
 
-    ## TEST ##
-
-
-# if __name__ == main:
-#    main()
 
 main()
 pygame.quit()
