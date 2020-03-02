@@ -23,6 +23,3 @@ class Item:
 
     def recieve(self, ent):
         ent.inventory.append(self)
-
-
-
