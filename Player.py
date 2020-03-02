@@ -43,10 +43,13 @@ class Player(Entity):
         self.inventory = inv
         self.direction = drc
 
-    def draw(self, dis, direction):
-        dis.blit(self.test_img, (self.Xpos, self.Ypos))
+    def draw(self, dis):
+        # dis.blit(self.test_img, (self.Xpos, self.Ypos))
+        if self.direction == 'up':
+            dis.blit()
 
-    def move(self, direction):
+    def move(self):
+
         pass
 
     def getInput(self, event):
@@ -57,14 +60,19 @@ class Player(Entity):
             # movement based on keypress
             # UP
             if event.key == K_UP or event == K_w:
-                self.move(self, 'up')
+                self.direction = 'up'
+                self.move()
             # DOWN
             if event.key == K_DOWN or event == K_s:
-                self.move(self, 'down')
+                self.direction = 'down'
+                self.move()
             # LEFT
             if event.key == K_LEFT or event == K_a:
-                self.move(self, 'left')
+                self.direction = 'left'
+                self.move()
             # RIGHT
             if event.key == K_RIGHT or event == K_d:
-                self.move(self, 'right')
+                self.direction = 'right'
+                self.move()
+
 
