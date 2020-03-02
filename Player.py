@@ -79,25 +79,25 @@ class Player(Entity):
             # movement based on keypress
             # UP
             if event.key == pygame.K_UP or event.key == pygame.K_w:
-                self.direction = 'up'
+                self.direction = UP
                 self.moveup = True
                 self.movedown = False
                 self.move()
             # DOWN
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
-                self.direction = 'down'
+                self.direction = DOWN
                 self.moveup = False
                 self.movedown = True
                 self.move()
             # LEFT
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                self.direction = 'left'
+                self.direction = LEFT
                 self.moveleft = True
                 self.moveright = False
                 self.move()
             # RIGHT
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                self.direction = 'right'
+                self.direction = RIGHT
                 self.moveleft = False
                 self.moveright = True
                 self.move()
