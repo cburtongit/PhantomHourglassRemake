@@ -29,7 +29,7 @@ def main():
 
     # main loop here
     while 1:
-        screen.blit(background, (0,0))
+        screen.blit(background, (0, 0))
         for event in pygame.event.get():
             link.get_input(event)
             if event.type == pygame.QUIT:
