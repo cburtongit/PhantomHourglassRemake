@@ -35,12 +35,16 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
 
-        print(link.direction)
         link.move()
         link.draw(screen)
-
         pygame.display.update()
         CLOCK.tick(30)
+
+        # debug
+        print(link.direction)
+        print('Link: ' + str(link.Xpos) + ', ' + str(link.Ypos))
+        print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(link.hit_box.topright))
+        print('HITBOX for LINK (bottom): ' + str(link.hit_box.bottomleft) + ', ' + str(link.hit_box.bottomright))
 
 
 main()

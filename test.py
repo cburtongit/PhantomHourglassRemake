@@ -6,8 +6,8 @@ from datetime import date
 # all my classes:
 from Player import Player
 
-WINDOW_X = 256*2
-WINDOW_Y = 192*2
+WINDOW_X = 256*4
+WINDOW_Y = 192*4
 
 cur_date = date.today()
 
@@ -29,18 +29,21 @@ def main():
 
     # main loop here
     while 1:
-        screen.blit(background, (link.Xpos, link.Ypos))
+        screen.blit(background, (0, 0))
         for event in pygame.event.get():
             link.get_input(event)
             if event.type == pygame.QUIT:
                 sys.exit()
 
-        print(link.direction)
         link.move()
         link.draw(screen)
-
         pygame.display.update()
         CLOCK.tick(30)
+
+        print(link.direction)
+        print('Link: ' + str(link.Xpos) + ', ' + str(link.Ypos))
+        print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(link.hit_box.topright))
+        print('HITBOX for LINK (bottom): ' + str(link.hit_box.bottomleft) + ', ' + str(link.hit_box.bottomright))
 
 
 main()
