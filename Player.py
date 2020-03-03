@@ -85,17 +85,17 @@ class Player(Entity):
         self.inventory = inv
         self.equipped = eqp
         self.inventory = inv
-
+        # directional variables
         self.direction = drc
-
         self.moveleft = False
         self.moveright = False
         self.moveup = False
         self.movedown = False
-
+        # hitbox for the player, used in collision
         self.hit_box = pygame.Rect((self.Xpos + 8, self.Ypos + 8), (16, 16))
 
     def draw(self, dis):
+        # PLAY animation and draw correct animation for direction
         if self.moveleft or self.moveright or self.moveup or self.movedown:
             self.link_conductor.play()
             if self.direction == self.UP:
@@ -106,6 +106,7 @@ class Player(Entity):
                 self.link_sprites['RIGHT'].blit(dis, (self.Xpos, self.Ypos))
             if self.direction == self.LEFT:
                 self.link_sprites['LEFT'].blit(dis, (self.Xpos, self.Ypos))
+        # STOP animation and draw idle sprite for last direction
         else:
             self.link_conductor.stop()
             if self.direction == self.UP:
@@ -118,15 +119,19 @@ class Player(Entity):
                 dis.blit(self.left_sprites, (self.Xpos, self.Ypos))
 
     def move(self):
+        # UP
         if self.moveup:
             self.Ypos -= self.speed
             self.hit_box.move_ip(0, -self.speed)
+        # DOWN
         if self.movedown:
             self.Ypos += self.speed
             self.hit_box.move_ip(0, +self.speed)
+        # LEFT
         if self.moveleft:
             self.Xpos -= self.speed
             self.hit_box.move_ip(-self.speed, 0)
+        # RIGHT
         if self.moveright:
             self.Xpos += self.speed
             self.hit_box.move_ip(+self.speed, 0)
@@ -188,3 +193,20 @@ class Player(Entity):
                     self.direction = self.UP
                 if self.movedown:
                     self.direction = self.DOWN
+
+    def hurt(self, damage):
+        self.health -= damage
+        if self.health < 1:
+            self.kill()
+
+    def attack(self):
+        pass
+
+    def attack(self):
+        pass
+
+    def use_item(self):
+        pass
+
+    def kill(self):
+        pass
