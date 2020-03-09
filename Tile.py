@@ -17,7 +17,6 @@ class Tile(Entity):
         self.solid = solid
         self.animated = animated
         self.img = pygame.image.load(img)
-        self.hit_box = pygame.Rect((self.Xpos, self.Ypos), (32, 32))
 
     def draw(self, dis):
         dis.blit(self.img, (self.Xpos, self.Ypos))

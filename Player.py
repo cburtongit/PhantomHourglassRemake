@@ -12,8 +12,6 @@ class Player(Entity):
     windUp = 0
     # what items the enemy has, should only have 1 or 2 unless boss, similar to player.inventory[]
     equipped = []
-    # movement speed
-    speed = 2.5
 
     # Inventory and Defense Items e.g. armor, shield
     # all items Entity is holding NON-EQUIPPED
@@ -39,37 +37,37 @@ class Player(Entity):
 
     # walking sprites animations
     link_sprites = {'UP': pyganim.PygAnimation([('resources/sprites/link/link_up.png', 100),
-                                              ('resources/sprites/link/link_up1.png', 100),
-                                              ('resources/sprites/link/link_up2.png', 100),
-                                              ('resources/sprites/link/link_up3.png', 100),
-                                              ('resources/sprites/link/link_up4.png', 100),
-                                              ('resources/sprites/link/link_up5.png', 100),
-                                              ('resources/sprites/link/link_up6.png', 100),
-                                              ('resources/sprites/link/link_up7.png', 100)]),
+                                                ('resources/sprites/link/link_up1.png', 100),
+                                                ('resources/sprites/link/link_up2.png', 100),
+                                                ('resources/sprites/link/link_up3.png', 100),
+                                                ('resources/sprites/link/link_up4.png', 100),
+                                                ('resources/sprites/link/link_up5.png', 100),
+                                                ('resources/sprites/link/link_up6.png', 100),
+                                                ('resources/sprites/link/link_up7.png', 100)]),
                     'DOWN': pyganim.PygAnimation([('resources/sprites/link/link_down.png', 100),
-                                                ('resources/sprites/link/link_down1.png', 100),
-                                                ('resources/sprites/link/link_down2.png', 100),
-                                                ('resources/sprites/link/link_down3.png', 100),
-                                                ('resources/sprites/link/link_down4.png', 100),
-                                                ('resources/sprites/link/link_down5.png', 100),
-                                                ('resources/sprites/link/link_down6.png', 100),
-                                                ('resources/sprites/link/link_down7.png', 100)]),
+                                                  ('resources/sprites/link/link_down1.png', 100),
+                                                  ('resources/sprites/link/link_down2.png', 100),
+                                                  ('resources/sprites/link/link_down3.png', 100),
+                                                  ('resources/sprites/link/link_down4.png', 100),
+                                                  ('resources/sprites/link/link_down5.png', 100),
+                                                  ('resources/sprites/link/link_down6.png', 100),
+                                                  ('resources/sprites/link/link_down7.png', 100)]),
                     'RIGHT': pyganim.PygAnimation([('resources/sprites/link/link_right.png', 100),
-                                                 ('resources/sprites/link/link_right1.png', 100),
-                                                 ('resources/sprites/link/link_right2.png', 100),
-                                                 ('resources/sprites/link/link_right3.png', 100),
-                                                 ('resources/sprites/link/link_right4.png', 100),
-                                                 ('resources/sprites/link/link_right5.png', 100),
-                                                 ('resources/sprites/link/link_right6.png', 100),
-                                                 ('resources/sprites/link/link_right7.png', 100)]),
+                                                   ('resources/sprites/link/link_right1.png', 100),
+                                                   ('resources/sprites/link/link_right2.png', 100),
+                                                   ('resources/sprites/link/link_right3.png', 100),
+                                                   ('resources/sprites/link/link_right4.png', 100),
+                                                   ('resources/sprites/link/link_right5.png', 100),
+                                                   ('resources/sprites/link/link_right6.png', 100),
+                                                   ('resources/sprites/link/link_right7.png', 100)]),
                     'LEFT': pyganim.PygAnimation([('resources/sprites/link/link_right.png', 100),
-                                                 ('resources/sprites/link/link_right1.png', 100),
-                                                 ('resources/sprites/link/link_right2.png', 100),
-                                                 ('resources/sprites/link/link_right3.png', 100),
-                                                 ('resources/sprites/link/link_right4.png', 100),
-                                                 ('resources/sprites/link/link_right5.png', 100),
-                                                 ('resources/sprites/link/link_right6.png', 100),
-                                                 ('resources/sprites/link/link_right7.png', 100)]),
+                                                  ('resources/sprites/link/link_right1.png', 100),
+                                                  ('resources/sprites/link/link_right2.png', 100),
+                                                  ('resources/sprites/link/link_right3.png', 100),
+                                                  ('resources/sprites/link/link_right4.png', 100),
+                                                  ('resources/sprites/link/link_right5.png', 100),
+                                                  ('resources/sprites/link/link_right6.png', 100),
+                                                  ('resources/sprites/link/link_right7.png', 100)]),
                     }
     # inverting RIGHT sprites to get LEFT facing ones
     link_sprites['LEFT'].flip(True, False)
@@ -88,7 +86,7 @@ class Player(Entity):
         self.direction = self.DOWN
         self.moveup = self.movedown = self.moveleft = self.moveright = False
         # hitbox for the player, used in collision
-        self.hit_box = pygame.Rect((self.Xpos + 8, self.Ypos + 8), (16, 16))
+        self.hit_box = pygame.Rect((self.Xpos + 8, self.Ypos - 8), (16, 16))
 
     def draw(self, dis, cent_x, cent_y):
         # PLAY animation and draw correct animation for direction
@@ -118,9 +116,6 @@ class Player(Entity):
         self.health -= damage
         if self.health < 1:
             self.kill()
-
-    def attack(self):
-        pass
 
     def attack(self):
         pass

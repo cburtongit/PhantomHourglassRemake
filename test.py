@@ -97,6 +97,7 @@ def load_world(map_data):
     tiles_y = 0
     tiles_count = 0
     tiles = []
+    solid_tiles = []
 
     for i in map_data:
         if i == '00':
@@ -106,13 +107,14 @@ def load_world(map_data):
             i = Tile(tiles_x, tiles_y, 0, False, False, 'resources/sprites/island/water/water2.png')
             i.make_solid()
             tiles.append(i)
+            solid_tiles.append(i)
         tiles_x += 32
         tiles_count += 1
         if tiles_count >= 43:
             tiles_x = 0
             tiles_y += 32
             tiles_count = 0
-    return tiles
+    return tiles, solid_tiles
 
 
 def main():
@@ -120,23 +122,24 @@ def main():
     camera = Camera(link.Xpos, link.Ypos, 0, link)
 
     # load the map data
-    tiles = load_world(mapData)
+    tiles, solid_tiles = load_world(mapData)
 
     # main loop
     while 1:
         for event in pygame.event.get():
-            # link.get_input(event)
             camera.get_input(event)
             if event.type == pygame.QUIT:
                 sys.exit()
 
         # MOVEMENT
-        # link.move()
         camera.move()
         for i in tiles:
             i.offset(camera.get_offset_x(), camera.get_offset_y())
 
         # COLLISION
+        for i in solid_tiles:
+            if link.hit_box.colliderect(i.hit_box):
+                print('COLLIDE')
 
         # DRAW
         screen.blit(background, (0, 0))
@@ -156,14 +159,13 @@ def main():
         print(
             'Link: ' + str(link.Xpos) + ', ' + str(link.Ypos) + '\nCamera: ' + str(camera.Xpos) + ', ' + str(
                 camera.Ypos))
-        '''
         print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(
             link.hit_box.topright) + '   RECT for CAMERA (top): ' + str(camera.hit_box.topleft) + ', ' + str(
             camera.hit_box.topright))
         print('RECT for LINK (bottom): ' + str(link.hit_box.bottomleft) + ', ' + str(
             link.hit_box.bottomright) + '   RECT for CAMERA (bottom): ' + str(camera.hit_box.bottomleft) + ', ' + str(
             camera.hit_box.bottomright))
-        '''
+        print('\n' + str(solid_tiles[0].Xpos) + ' ' + str(solid_tiles[0].Ypos))
 
 
 main()
