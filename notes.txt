@@ -13,3 +13,5 @@ to save on processing for collision checks, I could check the center pixel since
 
 
 aspect ratio is not 16 : 9 for (256*192)
+for 16: 9:
+use 43 x 24
