@@ -7,8 +7,9 @@ from Player import Player
 from Tile import *
 from Camera import Camera
 
-WINDOW_X = 256 * 4
-WINDOW_Y = 192 * 4
+SCALER = 4
+WINDOW_X = 1600
+WINDOW_Y = 900
 
 cur_date = date.today()
 
@@ -70,8 +71,9 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # setting up display properties
-screen = pygame.display.set_mode((WINDOW_X, WINDOW_Y))
+display = pygame.display.set_mode((WINDOW_X, WINDOW_Y))
 pygame.display.set_caption('The Legend of Zelda: Phantom Past - ' + str(cur_date))
+screen = pygame.Surface((256, 192))
 
 # refresh rate of display
 screen_rate = 60
@@ -121,6 +123,8 @@ def main():
         # MOVEMENT
         # link.move()
         camera.move()
+        for i in tiles:
+            i.offset(camera.get_offset_x(), camera.get_offset_y())
 
         # COLLISION
 
@@ -128,9 +132,13 @@ def main():
         screen.blit(background, (0, 0))
         for i in tiles:
             i.draw(screen)
-        link.draw(screen)
+        # draw to half of the surface - 16 pixels so sprite lines up with center
+        link.draw(screen, 112, 80)
 
         #  ENGINE UPDATE
+
+        scale_screen = pygame.transform.scale(screen, (WINDOW_X, WINDOW_Y))
+        display.blit(scale_screen, (0, 0))
         pygame.display.update()
         clock.tick(screen_rate * 0.5)
 

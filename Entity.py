@@ -10,6 +10,6 @@ class Entity:
         self.Epos = e
 
     # for Camera movement for already moving enemies
-    def offset(self, offset):
-        self.Xpos += offset[0]
-        self.Ypos += offset[1]
+    def offset(self, off_x, off_y):
+        self.Xpos += off_x
+        self.Ypos += off_y

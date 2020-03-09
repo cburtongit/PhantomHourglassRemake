@@ -90,29 +90,29 @@ class Player(Entity):
         # hitbox for the player, used in collision
         self.hit_box = pygame.Rect((self.Xpos + 8, self.Ypos + 8), (16, 16))
 
-    def draw(self, dis):
+    def draw(self, dis, cent_x, cent_y):
         # PLAY animation and draw correct animation for direction
         if self.moveleft or self.moveright or self.moveup or self.movedown:
             self.link_conductor.play()
             if self.direction == self.UP:
-                self.link_sprites['UP'].blit(dis, (self.Xpos, self.Ypos))
+                self.link_sprites['UP'].blit(dis, (cent_x, cent_y))
             if self.direction == self.DOWN:
-                self.link_sprites['DOWN'].blit(dis, (self.Xpos, self.Ypos))
+                self.link_sprites['DOWN'].blit(dis, (cent_x, cent_y))
             if self.direction == self.RIGHT:
-                self.link_sprites['RIGHT'].blit(dis, (self.Xpos, self.Ypos))
+                self.link_sprites['RIGHT'].blit(dis, (cent_x, cent_y))
             if self.direction == self.LEFT:
-                self.link_sprites['LEFT'].blit(dis, (self.Xpos, self.Ypos))
+                self.link_sprites['LEFT'].blit(dis, (cent_x, cent_y))
         # STOP animation and draw idle sprite for last direction
         else:
             self.link_conductor.stop()
             if self.direction == self.UP:
-                dis.blit(self.up_sprites, (self.Xpos, self.Ypos))
+                dis.blit(self.up_sprites, (cent_x, cent_y))
             if self.direction == self.DOWN:
-                dis.blit(self.down_sprites, (self.Xpos, self.Ypos))
+                dis.blit(self.down_sprites, (cent_x, cent_y))
             if self.direction == self.RIGHT:
-                dis.blit(self.right_sprites, (self.Xpos, self.Ypos))
+                dis.blit(self.right_sprites, (cent_x, cent_y))
             if self.direction == self.LEFT:
-                dis.blit(self.left_sprites, (self.Xpos, self.Ypos))
+                dis.blit(self.left_sprites, (cent_x, cent_y))
 
     def hurt(self, damage):
         self.health -= damage

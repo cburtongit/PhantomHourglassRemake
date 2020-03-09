@@ -3,7 +3,6 @@ from Entity import Entity
 
 
 class Camera(Entity):
-
     speed = 2.5
 
     LEFT, RIGHT, UP, DOWN = 'left right up down'.split()
@@ -76,6 +75,7 @@ class Camera(Entity):
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_UP or event.key == pygame.K_w:
                 self.moveup = False
+                target.moveup = False
                 if self.moveleft:
                     self.direction = self.LEFT
                 if self.moveright:
@@ -88,6 +88,7 @@ class Camera(Entity):
             # DOWN
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 self.movedown = False
+                target.movedown = False
                 if self.moveleft:
                     self.direction = self.LEFT
                 if self.moveright:
@@ -100,6 +101,7 @@ class Camera(Entity):
             # LEFT
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 self.moveleft = False
+                target.moveleft = False
                 if self.moveup:
                     self.direction = self.UP
                 if self.movedown:
@@ -112,6 +114,7 @@ class Camera(Entity):
             # RIGHT
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 self.moveright = False
+                target.moveright = False
                 if self.moveup:
                     self.direction = self.UP
                 if self.movedown:
@@ -155,6 +158,10 @@ class Camera(Entity):
                 target.Xpos += target.speed
                 target.hit_box.move_ip(+target.speed, 0)
 
-    def get_offset(self):
-        offset = [(self.old_x - self.Xpos), (self.old_y, self.Ypos)]
-        return offset
+    def get_offset_x(self):
+        off_x = (self.old_x - self.Xpos)
+        return off_x
+
+    def get_offset_y(self):
+        off_y = (self.old_y - self.Ypos)
+        return off_y

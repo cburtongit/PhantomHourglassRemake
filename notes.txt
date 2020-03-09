@@ -10,3 +10,6 @@ NEW CAMERA:
 move everything but link.
 
 to save on processing for collision checks, I could check the center pixel since link will always be there.
+
+
+aspect ratio is not 16 : 9 for (256*192)
