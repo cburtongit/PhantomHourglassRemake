@@ -3,3 +3,10 @@ tiles are 32 x 32
 overworld is currently 32 x 24 tiles, total size is 1024 x 768
 
 entities (non-boss) are 32 x 32 but hitboxes and sprites vary.
+
+
+NEW CAMERA:
+
+move everything but link.
+
+to save on processing for collision checks, I could check the center pixel since link will always be there.

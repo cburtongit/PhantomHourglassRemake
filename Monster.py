@@ -26,8 +26,8 @@ class Monster(Entity):
     # current sprite set to draw
     currentSprite = {}
 
-    def __init__(self, x, y, e, ent_id, health, atk, windUp, inv, drc):
-        super().__init__(x, y, e, ent_id)
+    def __init__(self, x, y, e, health, atk, windUp, inv, drc):
+        super().__init__(x, y, e)
         self.health = health
         self.atk = atk
         self.windUp = windUp

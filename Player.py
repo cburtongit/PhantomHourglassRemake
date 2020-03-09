@@ -77,8 +77,8 @@ class Player(Entity):
     # conductor object controls animations easier
     link_conductor = pyganim.PygConductor(link_sprites)
 
-    def __init__(self, x, y, e, ent_id, hpt, atk, inv, eqp, speed, drc):
-        super().__init__(x, y, e, ent_id)
+    def __init__(self, x, y, e, hpt, atk, inv, eqp, drc):
+        super().__init__(x, y, e)
         self.health = hpt
         self.atk = atk
         self.windUp = 0

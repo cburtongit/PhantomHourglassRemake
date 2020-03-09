@@ -2,9 +2,16 @@ import pygame
 import pyganim
 import sys
 from datetime import date
+import _tkinter as tk
 
-# all my classes:
+root = tk.Tk()
+
+# my classes:
 from Player import Player
+from Tile import *
+
+DISPLAY_X = root.winfo_screenwidth()
+DISPLAY_Y = root.winfo_screenheight()
 
 WINDOW_X = 256*4
 WINDOW_Y = 192*4
