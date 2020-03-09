@@ -5,6 +5,7 @@ from datetime import date
 # all my classes:
 from Player import Player
 from Tile import *
+from Camera import Camera
 
 WINDOW_X = 256 * 4
 WINDOW_Y = 192 * 4
@@ -103,6 +104,7 @@ def load_world(map_data):
 
 def main():
     link = Player((WINDOW_X / 2), (WINDOW_Y / 2), 0)
+    camera = Camera(link.Xpos, link.Ypos, 0, link)
 
     # load the map data
     tiles = load_world(mapData)
@@ -111,11 +113,13 @@ def main():
     while 1:
         for event in pygame.event.get():
             link.get_input(event)
+            camera.get_input(event)
             if event.type == pygame.QUIT:
                 sys.exit()
 
         # MOVEMENT
         link.move()
+        camera.move()
 
         # DRAW
         screen.blit(background, (0, 0))
@@ -128,10 +132,15 @@ def main():
         clock.tick(screen_rate * 0.5)
 
         # debug
-        print(link.direction)
-        print('Link: ' + str(link.Xpos) + ', ' + str(link.Ypos))
-        print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(link.hit_box.topright))
-        print('HITBOX for LINK (bottom): ' + str(link.hit_box.bottomleft) + ', ' + str(link.hit_box.bottomright))
+        print(link.direction + camera.direction)
+        print(
+            'Link: ' + str(link.Xpos) + ', ' + str(link.Ypos) + '\nCamera: ' + str(camera.Xpos) + ', ' + str(camera.Ypos))
+        print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(
+            link.hit_box.topright) + '   RECT for CAMERA (top): ' + str(camera.hit_box.topleft) + ', ' + str(
+            camera.hit_box.topright))
+        print('RECT for LINK (bottom): ' + str(link.hit_box.bottomleft) + ', ' + str(
+            link.hit_box.bottomright) + '   RECT for CAMERA (bottom): ' + str(camera.hit_box.bottomleft) + ', ' + str(
+            camera.hit_box.bottomright))
 
 
 main()
