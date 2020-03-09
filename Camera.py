@@ -3,7 +3,8 @@ from Entity import Entity
 
 
 class Camera(Entity):
-    speed = 0
+
+    speed = 2.5
 
     LEFT, RIGHT, UP, DOWN = 'left right up down'.split()
     direction = DOWN
@@ -12,8 +13,21 @@ class Camera(Entity):
 
     hit_box = None
 
-    def __init__(self, x, y, e):
+    target = None
+
+    old_x = 0
+    old_y = 0
+
+    def __init__(self, x, y, e, target):
         super().__init__(x, y, e)
+        self.Xpos = x
+        self.Ypos = y
+        self.Epos = e
+        self.target = target
+        self.hit_box = pygame.Rect((self.Xpos, self.Ypos), (32, 32))
+
+        self.old_x = self.Xpos
+        self.old_y = self.Ypos
 
     def get_input(self, event):
         if event.type == pygame.KEYDOWN:
@@ -72,3 +86,27 @@ class Camera(Entity):
                     self.direction = self.UP
                 if self.movedown:
                     self.direction = self.DOWN
+
+    def move(self):
+        # UP
+        self.old_x = self.Xpos
+        self.old_y = self.Ypos
+        if self.moveup:
+            self.Ypos -= self.speed
+            self.hit_box.move_ip(0, -self.speed)
+        # DOWN
+        if self.movedown:
+            self.Ypos += self.speed
+            self.hit_box.move_ip(0, +self.speed)
+        # LEFT
+        if self.moveleft:
+            self.Xpos -= self.speed
+            self.hit_box.move_ip(-self.speed, 0)
+        # RIGHT
+        if self.moveright:
+            self.Xpos += self.speed
+            self.hit_box.move_ip(+self.speed, 0)
+
+    def get_offset(self):
+        offset = [(self.old_x - self.Xpos), (self.old_y, self.Ypos)]
+        return offset

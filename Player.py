@@ -77,16 +77,15 @@ class Player(Entity):
     # conductor object controls animations easier
     link_conductor = pyganim.PygConductor(link_sprites)
 
-    def __init__(self, x, y, e, hpt, atk, inv, eqp, drc):
+    def __init__(self, x, y, e):
         super().__init__(x, y, e)
-        self.health = hpt
-        self.atk = atk
+        self.health = 300
+        self.atk = 100
         self.windUp = 0
-        self.inventory = inv
-        self.equipped = eqp
-        self.inventory = inv
+        self.inventory = []
+        self.equipped = None
         # directional variables
-        self.direction = drc
+        self.direction = self.DOWN
         self.moveleft = False
         self.moveright = False
         self.moveup = False

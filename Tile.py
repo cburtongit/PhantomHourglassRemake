@@ -12,15 +12,15 @@ class Tile(Entity):
     # determines if the tile is animated
     animated = False
 
-    def __init__(self, x, y, e, solid, anime, img):
+    def __init__(self, x, y, e, solid, animated, img):
         super().__init__(x, y, e)
         self.solid = solid
-        self.animated = anime
+        self.animated = animated
         self.img = pygame.image.load(img)
         self.hit_box = pygame.Rect((self.Xpos, self.Ypos), (32, 32))
 
     def draw(self, dis):
-        dis.blit(self.img, (self.hit_box.left, self.hit_box.top))
+        dis.blit(self.img, (self.Xpos, self.Ypos))
 
     def is_solid(self):
         if self.solid:
@@ -39,7 +39,8 @@ class AnimatedTile(Tile):
     frames = []
     frame_conductor = None
 
-    def __init__(self, frames):
+    def __init__(self, x, y, e, solid, animated, img, frames):
+        super().__init__(x, y, e, solid, animated, img)
         self.frames = frames
         self.frame_conductor = pyganim.PygConductor(frames)
 

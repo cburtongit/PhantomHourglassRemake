@@ -13,6 +13,6 @@ class Entity:
         pass
 
     # for Camera movement for already moving enemies
-    def offset(self, amount):
-        self.Xpos += amount
-        self.Ypos += amount
+    def offset(self, offset):
+        self.Xpos += offset[0]
+        self.Ypos += offset[1]

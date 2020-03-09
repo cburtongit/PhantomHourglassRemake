@@ -64,29 +64,28 @@ mapData = [
     '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00',
     '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00']
 
+# initialise Pygame
+pygame.init()
+clock = pygame.time.Clock()
 
-def main():
-    # initialise pygame
-    pygame.init()
-    clock = pygame.time.Clock()
+# setting up display properties
+screen = pygame.display.set_mode((WINDOW_X, WINDOW_Y))
+pygame.display.set_caption('The Legend of Zelda: Phantom Past - ' + str(cur_date))
 
-    # setting up display properties
-    screen = pygame.display.set_mode((WINDOW_X, WINDOW_Y))
-    pygame.display.set_caption('Phantom Hourglass - ' + str(cur_date))
+# refresh rate of display
+screen_rate = 60
 
-    # refresh rate of display
-    screen_rate = 60
+# debug: background loading to see sprite errors
+background = pygame.transform.scale(pygame.image.load('resources/placeholder.png'), (1024, 768)).convert()
 
-    background = pygame.transform.scale(pygame.image.load('resources/placeholder.png'), (1024, 768)).convert()
-    link = Player((WINDOW_X / 2), (WINDOW_Y / 2), 1, 100, 50, '', '', 'left')
 
-    # TEMP TILES
+def load_world(map_data):
     tiles_x = 0
     tiles_y = 0
     tiles_count = 0
     tiles = []
 
-    for i in mapData:
+    for i in map_data:
         if i == '00':
             i = Tile(tiles_x, tiles_y, 0, False, False, 'resources/sprites/island/water/water1.png')
             tiles.append(i)
@@ -99,21 +98,32 @@ def main():
             tiles_x = 0
             tiles_y += 32
             tiles_count = 0
+    return tiles
 
 
-    # main loop here
+def main():
+    link = Player((WINDOW_X / 2), (WINDOW_Y / 2), 0)
+
+    # load the map data
+    tiles = load_world(mapData)
+
+    # main loop
     while 1:
-        screen.blit(background, (0, 0))
         for event in pygame.event.get():
             link.get_input(event)
             if event.type == pygame.QUIT:
                 sys.exit()
 
+        # MOVEMENT
         link.move()
+
+        # DRAW
+        screen.blit(background, (0, 0))
         for i in tiles:
             i.draw(screen)
-
         link.draw(screen)
+
+        #  ENGINE UPDATE
         pygame.display.update()
         clock.tick(screen_rate * 0.5)
 
