@@ -22,6 +22,9 @@ class Tile(Entity):
     def draw(self, dis):
         dis.blit(self.img, (self.Xpos, self.Ypos))
 
+    def make_solid(self):
+        self.solid = True
+
     def is_solid(self):
         if self.solid:
             return True

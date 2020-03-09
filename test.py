@@ -92,6 +92,7 @@ def load_world(map_data):
             tiles.append(i)
         elif i == '01':
             i = Tile(tiles_x, tiles_y, 0, False, False, 'resources/sprites/island/water/water2.png')
+            i.make_solid()
             tiles.append(i)
         tiles_x += 32
         tiles_count += 1
@@ -121,6 +122,8 @@ def main():
         # link.move()
         camera.move()
 
+        # COLLISION
+
         # DRAW
         screen.blit(background, (0, 0))
         for i in tiles:
@@ -132,16 +135,18 @@ def main():
         clock.tick(screen_rate * 0.5)
 
         # debug
-        print(link.direction + camera.direction)
+        # print(link.direction + camera.direction)
         print(
             'Link: ' + str(link.Xpos) + ', ' + str(link.Ypos) + '\nCamera: ' + str(camera.Xpos) + ', ' + str(
                 camera.Ypos))
+        '''
         print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(
             link.hit_box.topright) + '   RECT for CAMERA (top): ' + str(camera.hit_box.topleft) + ', ' + str(
             camera.hit_box.topright))
         print('RECT for LINK (bottom): ' + str(link.hit_box.bottomleft) + ', ' + str(
             link.hit_box.bottomright) + '   RECT for CAMERA (bottom): ' + str(camera.hit_box.bottomleft) + ', ' + str(
             camera.hit_box.bottomright))
+        '''
 
 
 main()

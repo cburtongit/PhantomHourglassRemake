@@ -9,9 +9,6 @@ class Entity:
         self.Ypos = y
         self.Epos = e
 
-    def check_collide(self):
-        pass
-
     # for Camera movement for already moving enemies
     def offset(self, offset):
         self.Xpos += offset[0]

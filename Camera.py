@@ -32,7 +32,6 @@ class Camera(Entity):
     def get_input(self, event):
         target = self.target
         if event.type == pygame.KEYDOWN:
-            print("KEY PRESSED")
             # escape key quits game
             if event.key == pygame.K_ESCAPE:
                 pygame.quit()
@@ -75,7 +74,6 @@ class Camera(Entity):
                     target.moveright = True
 
         elif event.type == pygame.KEYUP:
-            print('KEY NOT PRESSED')
             if event.key == pygame.K_UP or event.key == pygame.K_w:
                 self.moveup = False
                 if self.moveleft:
@@ -156,28 +154,6 @@ class Camera(Entity):
             if self.target is not None:
                 target.Xpos += target.speed
                 target.hit_box.move_ip(+target.speed, 0)
-
-    '''
-    def move_target(self, target):
-        # UP
-        target.old_x = self.Xpos
-        self.old_y = self.Ypos
-        if self.moveup:
-            target.Ypos -= target.speed
-            target.hit_box.move_ip(0, -target.speed)
-        # DOWN
-        if self.movedown:
-            target.Ypos += target.speed
-            target.hit_box.move_ip(0, +target.speed)
-        # LEFT
-        if self.moveleft:
-            target.Xpos -= target.speed
-            target.hit_box.move_ip(-target.speed, 0)
-        # RIGHT
-        if self.moveright:
-            target.Xpos += target.speed
-            target.hit_box.move_ip(+target.speed, 0)
-    '''
 
     def get_offset(self):
         offset = [(self.old_x - self.Xpos), (self.old_y, self.Ypos)]
