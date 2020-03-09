@@ -112,13 +112,13 @@ def main():
     # main loop
     while 1:
         for event in pygame.event.get():
-            link.get_input(event)
+            # link.get_input(event)
             camera.get_input(event)
             if event.type == pygame.QUIT:
                 sys.exit()
 
         # MOVEMENT
-        link.move()
+        # link.move()
         camera.move()
 
         # DRAW
@@ -134,7 +134,8 @@ def main():
         # debug
         print(link.direction + camera.direction)
         print(
-            'Link: ' + str(link.Xpos) + ', ' + str(link.Ypos) + '\nCamera: ' + str(camera.Xpos) + ', ' + str(camera.Ypos))
+            'Link: ' + str(link.Xpos) + ', ' + str(link.Ypos) + '\nCamera: ' + str(camera.Xpos) + ', ' + str(
+                camera.Ypos))
         print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(
             link.hit_box.topright) + '   RECT for CAMERA (top): ' + str(camera.hit_box.topleft) + ', ' + str(
             camera.hit_box.topright))
