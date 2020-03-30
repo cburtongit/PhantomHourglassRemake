@@ -86,7 +86,8 @@ class Player(Entity):
         self.direction = self.DOWN
         self.moveup = self.movedown = self.moveleft = self.moveright = False
         # hitbox for the player, used in collision
-        self.hit_box = pygame.Rect((self.Xpos + 8, self.Ypos - 8), (16, 16))
+        # make the hitbox forgiving since the sprite is almost half the size
+        self.hit_box = pygame.Rect((self.Xpos + 8, self.Ypos + 5), (16, 21))
 
     def draw(self, dis, cent_x, cent_y):
         # PLAY animation and draw correct animation for direction

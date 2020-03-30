@@ -8,15 +8,15 @@ from Tile import *
 from Camera import Camera
 
 SCALER = 4
-WINDOW_X = 1600
-WINDOW_Y = 900
+WINDOW_X = 1368
+WINDOW_Y = 768
 # creates 4:3 aspect ratio - floor division for int
 
 cur_date = date.today()
 
 mapData = [
     # 0 - 7
-    '00', '00', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00',
+    '00', '01', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00',
     '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00', '00', '00',
     '00', '00', '01', '00', '01', '00', '00', '00', '00', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00',
     '00', '00', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00',
@@ -118,8 +118,10 @@ def load_world(map_data):
 
 
 def main():
-    link = Player((WINDOW_X / 2), (WINDOW_Y / 2), 0)
-    camera = Camera(link.Xpos, link.Ypos, 0, link)
+    link = Player(155, 96, 0)
+    camera = Camera(0, link)
+    tester = Tile(0, 0, 0, False, False, 'resources/sprites/island/grass1.png')
+
 
     # load the map data
     tiles, solid_tiles = load_world(mapData)
@@ -135,30 +137,34 @@ def main():
         camera.move()
         for i in tiles:
             i.offset(camera.get_offset_x(), camera.get_offset_y())
-
-        # COLLISION
-        for i in solid_tiles:
-            if link.hit_box.colliderect(i.hit_box):
-                print('COLLIDE')
+        tester.offset(camera.get_offset_x(), camera.get_offset_y())
 
         # DRAW
         screen.blit(background, (0, 0))
         for i in tiles:
             i.draw(screen)
         # draw to half of the surface - 16 pixels so sprite lines up with center
-        link.draw(screen, 155, 80)
+        link.draw(screen, 155, 96)
+        tester.draw(screen)
+
+        if link.hit_box.colliderect(tester.hit_box):
+            print("---Collide---")
 
         #  ENGINE UPDATE
-        scale_screen = pygame.transform.scale(screen, (WINDOW_X, WINDOW_Y))
-        display.blit(scale_screen, (0, 0))
+        scaled_screen = pygame.transform.scale(screen, (WINDOW_X, WINDOW_Y))
+        display.blit(scaled_screen, (0, 0))
+
         pygame.display.update()
         clock.tick(screen_rate * 0.5)
 
+
+
         # debug
-        # print(link.direction + camera.direction)
+        """
         print(
             'Link: ' + str(link.Xpos) + ', ' + str(link.Ypos) + '\nCamera: ' + str(camera.Xpos) + ', ' + str(
                 camera.Ypos))
+        
         print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(
             link.hit_box.topright) + '   RECT for CAMERA (top): ' + str(camera.hit_box.topleft) + ', ' + str(
             camera.hit_box.topright))
@@ -166,6 +172,11 @@ def main():
             link.hit_box.bottomright) + '   RECT for CAMERA (bottom): ' + str(camera.hit_box.bottomleft) + ', ' + str(
             camera.hit_box.bottomright))
         print('\n' + str(solid_tiles[0].Xpos) + ' ' + str(solid_tiles[0].Ypos))
+        """
+        print('LINK: ' + str(link.hit_box.topleft) + ', ' + str(link.hit_box.topright) + ', '
+              + str(link.hit_box.bottomleft) + ', ' + str(link.hit_box.bottomright))
+        print('Tile: ' + str(tester.hit_box.topleft) + ', ' + str(tester.hit_box.topright) + ', '
+              + str(tester.hit_box.bottomleft) + ', ' + str(tester.hit_box.bottomright))
 
 
 main()

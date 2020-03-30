@@ -3,7 +3,7 @@ from Entity import Entity
 
 
 class Camera(Entity):
-    speed = 2.5
+    speed = 2
 
     LEFT, RIGHT, UP, DOWN = 'left right up down'.split()
     direction = DOWN
@@ -17,13 +17,10 @@ class Camera(Entity):
     old_x = 0
     old_y = 0
 
-    def __init__(self, x, y, e, target):
-        super().__init__(x, y, e)
-        self.Xpos = x
-        self.Ypos = y
-        self.Epos = e
+    def __init__(self, e, target):
         self.target = target
-
+        super().__init__(target.Xpos, target.Ypos, e)
+        self.Epos = e
         self.old_x = self.Xpos
         self.old_y = self.Ypos
 
@@ -124,6 +121,7 @@ class Camera(Entity):
                     if self.movedown:
                         target.direction = target.DOWN
 
+    """
     def move(self):
         target = self.target
         # UP
@@ -131,31 +129,48 @@ class Camera(Entity):
         self.old_y = self.Ypos
         if self.moveup:
             self.Ypos -= self.speed
-            self.hit_box.move_ip(0, -self.speed)
+            #self.hit_box.move_ip(0, -self.speed)
             if self.target is not None:
                 target.Ypos -= self.speed
                 target.hit_box.move_ip(0, -self.speed)
         # DOWN
         if self.movedown:
             self.Ypos += self.speed
-            self.hit_box.move_ip(0, +self.speed)
+            #self.hit_box.move_ip(0, +self.speed)
             if self.target is not None:
                 target.Ypos += self.speed
                 target.hit_box.move_ip(0, +self.speed)
         # LEFT
         if self.moveleft:
             self.Xpos -= self.speed
-            self.hit_box.move_ip(-self.speed, 0)
+            #self.hit_box.move_ip(-self.speed, 0)
             if self.target is not None:
                 target.Xpos -= self.speed
                 target.hit_box.move_ip(-self.speed, 0)
         # RIGHT
         if self.moveright:
             self.Xpos += self.speed
-            self.hit_box.move_ip(+self.speed, 0)
+            #self.hit_box.move_ip(+self.speed, 0)
             if self.target is not None:
                 target.Xpos += self.speed
                 target.hit_box.move_ip(+self.speed, 0)
+    """
+    def move(self):
+        target = self.target
+        # UP
+        self.old_x = self.Xpos
+        self.old_y = self.Ypos
+        if self.moveup:
+            self.Ypos -= self.speed
+        # DOWN
+        if self.movedown:
+            self.Ypos += self.speed
+        # LEFT
+        if self.moveleft:
+            self.Xpos -= self.speed
+        # RIGHT
+        if self.moveright:
+            self.Xpos += self.speed
 
     def get_offset_x(self):
         off_x = (self.old_x - self.Xpos)
@@ -164,7 +179,3 @@ class Camera(Entity):
     def get_offset_y(self):
         off_y = (self.old_y - self.Ypos)
         return off_y
-
-    def push(self, x, y):
-        self.Xpos += x
-        self.Ypos += y
