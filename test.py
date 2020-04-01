@@ -131,9 +131,6 @@ def main():
 
     # main loop
     while 1:
-
-        has_collided = False
-
         # INPUT
         for event in pygame.event.get():
             camera.get_input(event)
@@ -168,7 +165,6 @@ def main():
         # debug
         print('LINK: ' + str(link.hit_box.topleft) + ', ' + str(link.hit_box.topright) + ', '
               + str(link.hit_box.bottomleft) + ', ' + str(link.hit_box.bottomright))
-        print(str(has_collided))
 
 
 main()
