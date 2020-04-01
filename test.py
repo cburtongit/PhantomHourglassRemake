@@ -122,29 +122,12 @@ def check_collision(ent_a, ent_b):
         return True
 
 
-# CHANGE OFFSET NOT MOVEMENT
-
-
 def main():
     link = Player(155, 96, 0)
     camera = Camera(0, link)
 
     # load the map data
     tiles, solid_tiles = load_world(mapData)
-
-    # MOVE LATER - directions for collision
-    c_direct_x = {
-        'left': -link.speed,
-        'right': +link.speed,
-        'up': 0,
-        'down': 0
-    }
-    c_direct_y = {
-        'up': -link.speed,
-        'down': +link.speed,
-        'left': 0,
-        'right': 0
-    }
 
     # main loop
     while 1:
