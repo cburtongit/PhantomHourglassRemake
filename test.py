@@ -8,8 +8,8 @@ from Tile import *
 from Camera import Camera
 
 SCALER = 4
-WINDOW_X = 1368
-WINDOW_Y = 768
+WINDOW_X = 342
+WINDOW_Y = 192
 # creates 4:3 aspect ratio - floor division for int
 
 cur_date = date.today()
@@ -81,9 +81,9 @@ pygame.init()
 clock = pygame.time.Clock()
 
 # setting up display properties
-display = pygame.display.set_mode((WINDOW_X, WINDOW_Y))
-pygame.display.set_caption('The Legend of Zelda: Phantom Past - ' + str(cur_date))
-screen = pygame.Surface((342, 192))
+display = pygame.display.set_mode((WINDOW_X * SCALER, WINDOW_Y * SCALER))
+pygame.display.set_caption('The Legend of Zelda: Sands to the Past - ' + str(cur_date))
+screen = pygame.Surface((WINDOW_X, WINDOW_Y))
 
 # refresh rate of display
 screen_rate = 60
@@ -117,17 +117,41 @@ def load_world(map_data):
     return tiles, solid_tiles
 
 
+def check_collision(ent_a, ent_b):
+    if ent_a.hit_box.colliderect(ent_b.hit_box):
+        return True
+
+
+# CHANGE OFFSET NOT MOVEMENT
+
+
 def main():
     link = Player(155, 96, 0)
     camera = Camera(0, link)
-    tester = Tile(0, 0, 0, False, False, 'resources/sprites/island/grass1.png')
-
 
     # load the map data
     tiles, solid_tiles = load_world(mapData)
 
+    # MOVE LATER - directions for collision
+    c_direct_x = {
+        'left': -link.speed,
+        'right': +link.speed,
+        'up': 0,
+        'down': 0
+    }
+    c_direct_y = {
+        'up': -link.speed,
+        'down': +link.speed,
+        'left': 0,
+        'right': 0
+    }
+
     # main loop
     while 1:
+
+        has_collided = False
+
+        # INPUT
         for event in pygame.event.get():
             camera.get_input(event)
             if event.type == pygame.QUIT:
@@ -136,8 +160,14 @@ def main():
         # MOVEMENT
         camera.move()
         for i in tiles:
-            i.offset(camera.get_offset_x(), camera.get_offset_y())
-        tester.offset(camera.get_offset_x(), camera.get_offset_y())
+            i.offset(camera.get_offset())
+
+        # COLLISION
+        for tile in solid_tiles:
+            if check_collision(link, tile):
+                for i in tiles:
+                    i.offset(camera.get_offset_inverted())
+                print("LINK collides with " + str(tile))
 
         # DRAW
         screen.blit(background, (0, 0))
@@ -145,38 +175,17 @@ def main():
             i.draw(screen)
         # draw to half of the surface - 16 pixels so sprite lines up with center
         link.draw(screen, 155, 96)
-        tester.draw(screen)
-
-        if link.hit_box.colliderect(tester.hit_box):
-            print("---Collide---")
 
         #  ENGINE UPDATE
-        scaled_screen = pygame.transform.scale(screen, (WINDOW_X, WINDOW_Y))
+        scaled_screen = pygame.transform.scale(screen, (WINDOW_X * SCALER, WINDOW_Y * SCALER))
         display.blit(scaled_screen, (0, 0))
-
         pygame.display.update()
         clock.tick(screen_rate * 0.5)
 
-
-
         # debug
-        """
-        print(
-            'Link: ' + str(link.Xpos) + ', ' + str(link.Ypos) + '\nCamera: ' + str(camera.Xpos) + ', ' + str(
-                camera.Ypos))
-        
-        print('RECT for LINK (top): ' + str(link.hit_box.topleft) + ', ' + str(
-            link.hit_box.topright) + '   RECT for CAMERA (top): ' + str(camera.hit_box.topleft) + ', ' + str(
-            camera.hit_box.topright))
-        print('RECT for LINK (bottom): ' + str(link.hit_box.bottomleft) + ', ' + str(
-            link.hit_box.bottomright) + '   RECT for CAMERA (bottom): ' + str(camera.hit_box.bottomleft) + ', ' + str(
-            camera.hit_box.bottomright))
-        print('\n' + str(solid_tiles[0].Xpos) + ' ' + str(solid_tiles[0].Ypos))
-        """
         print('LINK: ' + str(link.hit_box.topleft) + ', ' + str(link.hit_box.topright) + ', '
               + str(link.hit_box.bottomleft) + ', ' + str(link.hit_box.bottomright))
-        print('Tile: ' + str(tester.hit_box.topleft) + ', ' + str(tester.hit_box.topright) + ', '
-              + str(tester.hit_box.bottomleft) + ', ' + str(tester.hit_box.bottomright))
+        print(str(has_collided))
 
 
 main()

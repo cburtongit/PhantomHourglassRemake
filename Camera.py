@@ -3,14 +3,12 @@ from Entity import Entity
 
 
 class Camera(Entity):
-    speed = 2
+    speed = 0
 
     LEFT, RIGHT, UP, DOWN = 'left right up down'.split()
     direction = DOWN
 
     moveup = movedown = moveleft = moveright = False
-
-    hit_box = None
 
     target = None
 
@@ -23,6 +21,7 @@ class Camera(Entity):
         self.Epos = e
         self.old_x = self.Xpos
         self.old_y = self.Ypos
+        self.speed = target.speed
 
     def get_input(self, event):
         target = self.target
@@ -155,11 +154,11 @@ class Camera(Entity):
                 target.Xpos += self.speed
                 target.hit_box.move_ip(+self.speed, 0)
     """
+
     def move(self):
-        target = self.target
-        # UP
         self.old_x = self.Xpos
         self.old_y = self.Ypos
+        # UP
         if self.moveup:
             self.Ypos -= self.speed
         # DOWN
@@ -172,10 +171,20 @@ class Camera(Entity):
         if self.moveright:
             self.Xpos += self.speed
 
+    def get_offset(self):
+        offset = list([])
+        offset.append(self.old_x - self.Xpos)
+        offset.append(self.old_y - self.Ypos)
+        return offset
+
     def get_offset_x(self):
-        off_x = (self.old_x - self.Xpos)
-        return off_x
+        return self.old_x - self.Xpos
 
     def get_offset_y(self):
-        off_y = (self.old_y - self.Ypos)
-        return off_y
+        return self.old_y - self.Ypos
+
+    def get_offset_inverted(self):
+        offset = list([])
+        offset.append(~(self.old_x - self.Xpos) + 1)
+        offset.append(~(self.old_y - self.Ypos) + 1)
+        return offset

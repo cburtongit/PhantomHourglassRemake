@@ -7,9 +7,10 @@ class Player(Entity):
     # battle stats
     # health - total health, once 0 death() should be called
     health = 0
+
     # atk - amount of damage done to target
     atk = 0
-    windUp = 0
+
     # what items the enemy has, should only have 1 or 2 unless boss, similar to player.inventory[]
     equipped = []
 
@@ -17,15 +18,17 @@ class Player(Entity):
     # all items Entity is holding NON-EQUIPPED
     inventory = []
 
+    # Speed of the player
+    speed = 0
+
     # movement variables
     # moveUp = moveRight = moveDown = moveLeft = False
-
     LEFT, RIGHT, UP, DOWN = 'left right up down'.split()
     direction = DOWN
 
     moveup = movedown = moveleft = moveright = False
 
-    hit_box = ''
+    hit_box = None
 
     # animations
     # test_img = pygame.image.load('resources/sprites/link/dev_link.png')
@@ -79,9 +82,9 @@ class Player(Entity):
         super().__init__(x, y, e)
         self.health = 300
         self.atk = 100
-        self.windUp = 0
         self.inventory = []
         self.equipped = None
+        self.speed = 2
         # directional variables
         self.direction = self.DOWN
         self.moveup = self.movedown = self.moveleft = self.moveright = False
