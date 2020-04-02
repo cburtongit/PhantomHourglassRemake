@@ -16,7 +16,7 @@ cur_date = date.today()
 
 mapData = [
     # 0 - 7
-    '00', '01', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00',
+    '00', '01', '00', '00', '00', '00', '00', '01', '01', '01', '00', '00', '00', '00', '00', '00', '00', '00', '00',
     '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00', '00', '00',
     '00', '00', '01', '00', '01', '00', '00', '00', '00', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00',
     '00', '00', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00', '01', '00', '00', '00', '00', '00',
@@ -122,6 +122,21 @@ def check_collision(ent_a, ent_b):
         return True
 
 
+def get_collision_direction(target, ent):
+    # TOP - LINK COLLIDES FACING DOWN
+    if target.hit_box.midtop[1] > ent.hit_box.midtop[1]:
+        return 'up'
+    # LEFT - LINK COLLIDES FACING RIGHT
+    elif target.hit_box.midleft[0] > ent.hit_box.midleft[0]:
+        return 'left'
+    # RIGHT - LINK COLLIDES FACING LEFT
+    elif target.hit_box.midright[0] < ent.hit_box.midright[0]:
+        return 'right'
+    # BOTTOM - LINK COLLIDES FACING UP
+    else:
+        return 'down'
+
+
 def main():
     link = Player(155, 96, 0)
     camera = Camera(0, link)
@@ -143,9 +158,16 @@ def main():
             i.offset(camera.get_offset())
 
         # COLLISION
+        c_dict = {
+            'up': [0, -camera.speed],
+            'down': [0, +camera.speed],
+            'left': [-camera.speed, 0],
+            'right': [+camera.speed, 0]
+        }
         for tile in solid_tiles:
             if check_collision(link, tile):
                 for i in tiles:
+                    i.offset(c_dict[get_collision_direction(camera, tile)])
                     i.offset(camera.get_offset_inverted())
                 print("LINK collides with " + str(tile))
 
