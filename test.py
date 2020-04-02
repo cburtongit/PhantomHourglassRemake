@@ -124,7 +124,7 @@ def check_collision(ent_a, ent_b):
 
 def get_collision_direction(target, ent):
     # TOP - LINK COLLIDES FACING DOWN
-    if target.hit_box.midtop[1] > ent.hit_box.midtop[1]:
+    if target.hit_box.left > ent.hit_box.midtop[1]:
         return 'up'
     # LEFT - LINK COLLIDES FACING RIGHT
     elif target.hit_box.midleft[0] > ent.hit_box.midleft[0]:
@@ -135,6 +135,30 @@ def get_collision_direction(target, ent):
     # BOTTOM - LINK COLLIDES FACING UP
     else:
         return 'down'
+
+
+def offset_from_direction(target, ent):
+    direction = get_collision_direction(target, ent)
+    if direction == 'left':
+        if target.moveup:
+            return [0, -target.speed]
+        if target.movedown:
+            return [0, target.speed]
+    if direction == 'right':
+        if target.moveup:
+            return [0, -target.speed]
+        if target.movedown:
+            return [0, target.speed]
+    if direction == 'left':
+        if target.moveleft:
+            return [-target.speed, 0]
+        if target.moveright:
+            return [target.speed, 0]
+    if direction == 'left':
+        if target.moveleft:
+            return [-target.speed, 0]
+        if target.moveright:
+            return [target.speed, 0]
 
 
 def main():
@@ -157,19 +181,12 @@ def main():
         for i in tiles:
             i.offset(camera.get_offset())
 
-        # COLLISION
-        c_dict = {
-            'up': [0, -camera.speed],
-            'down': [0, +camera.speed],
-            'left': [-camera.speed, 0],
-            'right': [+camera.speed, 0]
-        }
         for tile in solid_tiles:
             if check_collision(link, tile):
                 for i in tiles:
-                    i.offset(c_dict[get_collision_direction(camera, tile)])
                     i.offset(camera.get_offset_inverted())
                 print("LINK collides with " + str(tile))
+                print(str(offset_from_direction(link, tile)))
 
         # DRAW
         screen.blit(background, (0, 0))
