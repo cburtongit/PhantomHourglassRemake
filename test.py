@@ -124,41 +124,17 @@ def check_collision(ent_a, ent_b):
 
 def get_collision_direction(target, ent):
     # TOP - LINK COLLIDES FACING DOWN
-    if target.hit_box.left > ent.hit_box.midtop[1]:
-        return 'up'
+    if target.hit_box.midtop[1] > ent.hit_box.midtop[1]:
+        return 'down'
     # LEFT - LINK COLLIDES FACING RIGHT
     elif target.hit_box.midleft[0] > ent.hit_box.midleft[0]:
-        return 'left'
+        return 'right'
     # RIGHT - LINK COLLIDES FACING LEFT
     elif target.hit_box.midright[0] < ent.hit_box.midright[0]:
-        return 'right'
+        return 'left'
     # BOTTOM - LINK COLLIDES FACING UP
     else:
-        return 'down'
-
-
-def offset_from_direction(target, ent):
-    direction = get_collision_direction(target, ent)
-    if direction == 'left':
-        if target.moveup:
-            return [0, -target.speed]
-        if target.movedown:
-            return [0, target.speed]
-    if direction == 'right':
-        if target.moveup:
-            return [0, -target.speed]
-        if target.movedown:
-            return [0, target.speed]
-    if direction == 'left':
-        if target.moveleft:
-            return [-target.speed, 0]
-        if target.moveright:
-            return [target.speed, 0]
-    if direction == 'left':
-        if target.moveleft:
-            return [-target.speed, 0]
-        if target.moveright:
-            return [target.speed, 0]
+        return 'up'
 
 
 def main():
@@ -186,7 +162,6 @@ def main():
                 for i in tiles:
                     i.offset(camera.get_offset_inverted())
                 print("LINK collides with " + str(tile))
-                print(str(offset_from_direction(link, tile)))
 
         # DRAW
         screen.blit(background, (0, 0))
@@ -204,6 +179,5 @@ def main():
         # debug
         print('LINK: ' + str(link.hit_box.topleft) + ', ' + str(link.hit_box.topright) + ', '
               + str(link.hit_box.bottomleft) + ', ' + str(link.hit_box.bottomright))
-
 
 main()

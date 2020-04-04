@@ -3,10 +3,11 @@ from Entity import Entity
 
 
 class Camera(Entity):
-    speed = 0
 
     LEFT, RIGHT, UP, DOWN = 'left right up down'.split()
     direction = DOWN
+    x_direction = LEFT
+    y_direction = DOWN
 
     moveup = movedown = moveleft = moveright = False
 
@@ -14,6 +15,8 @@ class Camera(Entity):
 
     old_x = 0
     old_y = 0
+
+    speed = 0
 
     def __init__(self, e, target):
         self.target = target
@@ -33,6 +36,7 @@ class Camera(Entity):
             # UP
             if event.key == pygame.K_UP or event.key == pygame.K_w:
                 self.direction = self.UP
+                self.y_direction = self.UP
                 self.moveup = True
                 self.movedown = False
                 if self.target is not None:
@@ -42,6 +46,7 @@ class Camera(Entity):
             # DOWN
             if event.key == pygame.K_DOWN or event.key == pygame.K_s:
                 self.direction = self.DOWN
+                self.y_direction = self.DOWN
                 self.moveup = False
                 self.movedown = True
                 if self.target is not None:
@@ -51,6 +56,7 @@ class Camera(Entity):
             # LEFT
             if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                 self.direction = self.LEFT
+                self.x_direction = self.LEFT
                 self.moveleft = True
                 self.moveright = False
                 if self.target is not None:
@@ -60,6 +66,7 @@ class Camera(Entity):
             # RIGHT
             if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
                 self.direction = self.RIGHT
+                self.x_direction = self.RIGHT
                 self.moveleft = False
                 self.moveright = True
                 if self.target is not None:
