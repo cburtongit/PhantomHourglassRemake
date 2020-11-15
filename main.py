@@ -102,7 +102,7 @@ pygame.display.set_caption('The Legend of Zelda: Sands to the Past - ' + str(cur
 screen = pygame.Surface((WINDOW_X, WINDOW_Y))
 
 # refresh rate of display
-screen_rate = 60
+screen_rate = 120
 
 # debug: background loading to see sprite errors
 background = pygame.transform.scale(pygame.image.load('resources/placeholder.png'), (1024, 768)).convert()
